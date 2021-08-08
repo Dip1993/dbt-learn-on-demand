@@ -9,6 +9,10 @@ models:
           tests:
             - unique
             - not_null
+        - name: first_name
+          description: The firstname of the customer
+        - name: last_name
+          description: The last name of the customer
     - name: stg_orders
       description: one unique order per row
       columns:
@@ -29,5 +33,7 @@ models:
             - relationships:
                 to: ref('stg_customers')
                 field: customer_id
+        - name: order_date
+          description: The date of placing the order
 
 

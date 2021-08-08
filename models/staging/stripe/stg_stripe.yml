@@ -1,0 +1,33 @@
+version: 2
+
+models:
+    - name: stg_payments
+      description: One unique payment information per row
+      columns:
+        - name: payment_id
+          description: Primary Key for stg_payments
+          tests:
+            - unique
+            - not_null
+        - name: order_id
+          description: Foreign Key to stg_orders.order_id
+          tests:
+            - relationships:
+                to: ref('stg_orders')
+                field: order_id
+        - name: payment_method
+          description: '{{ doc("payment_mode") }}'
+          tests:
+            - accepted_values:
+                values:
+                    ['credit_card', 'coupon', 'bank_transfer', 'gift_card']
+        - name: status
+          description: '{{ doc("payment_status") }}'
+          tests:
+            - accepted_values:
+                values:
+                    ['success','fail']
+        - name: amount
+          description: The amount paid in dollars
+        - name: created_at
+          description: The date of payment for particular order
